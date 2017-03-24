@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期</title>
+    <!--react的核心文件-->
+    <script src="build/react.js"></script>
+    <!--提供与DOM相关的功能-->
+    <script src="build/react-dom.js"></script>
+    <!--将JSX语法转为JavaScript语法-->
+    <script src="build/browser.min.js"></script>
+</head>
+<body>
+<!--用于渲染后追加DOM的容器-->
+<div id="container"></div>
+</body>
+<!--在react中使用jsx语法与JS语法不兼容，-->
+<!--要用babel转换为可以在浏览器中可以运行的代码，设置type="text/babel"-->
+<script type="text/babel">
+    //此处编写react代码
+//(一、)组件生命周期的三个状态
+//    1、Mounting:组件挂载，已插入真是DOM
+//    2、Updating:组件更新，正在被重新渲染
+//    3、Unmounting:组件移除，已移出真是dom
+//(二、)组件生命周期4个阶段
+//    创建，实例化，更新，销毁
+//(三、)生命周期中调用的方法
+//    1、Mounting/组件挂载相关的
+//    componentWillMount:组件将要挂载，在render之前执行但仅执行一次，即便多次重复
+//    渲染该组件或改变组件的state
+//    componentDidMount:组件已挂载，在render之后执行同一个组件重复渲染只执行一次
+//    2、Updating/组件更新相关
+//    componentWillReceiveProps(object nextProps)已加载组件，收到新的props之前调用
+//    注意(组件初始化渲染时则不会执行)
+//    shouldComponentUpdate(object nextProps,object nextState)组件判断是否重新渲染时
+//    调用，该接口实际是在收到了新的props/state的时候会立即调用
+//    componentWillUpdate(object nextProps,object nextState)组件将要更新
+//    componentDidUpdate(object nextProps,object nextState)组件已更新
+//    3、Unmounting/组件移除相关
+//    componentWillUnmount在组件要移除之前的时间触发，可以利用该方法执行一些必要的
+//    清理组件
+//    4、生命周期中与props和state相关的
+//    getDefaultProps 设置props的默认值
+//    getInitialState 设置state属性初始值
+
+
+    var Demo=React.createClass({
+        //创建阶段只调用getDefaultProps，设置this.props的默认值
+        getDefaultProps:function(){
+            console.log("getDefaultProps");
+            return {}
+        },
+        //实例化阶段
+        //流程：getInitialState，componentWillMounting，render，componentDidMounting
+        getInitialState:function(){
+            console.log("getInitialState");//设置this.state的默认值
+            return null;
+        },
+        componentWillMount:function(){
+            //在render之前调用
+            console.log("componentWillMount");
+        },
+        render:function(){
+            console.log("render");
+            return <div>hello React</div>
+        },
+        componentDidMount:function(){
+            //在render之后调用，该方法中react会使用render方法返回的虚拟dom对象创建真实的
+            //dom结构，可以在这个方法中读取dom节点
+            console.log("componentDidMount");
+        },
+        //更新阶段
+        //流程：componentWillReceiveProps,shouldComponentUpdate,componentWillUpdate
+        //render,componentDidUpdate
+        componentWillReceiveProps:function(){
+            console.log("componentWillReceiveProps");
+        },
+        shouldComponentUpdate:function(){
+            console.log("shouldComponentUpdate");
+            return true;//是否需要更新，返回值为false时不再执行后3个方法
+        },
+        componentWillUpdate:function(){
+            console.log("componentWillUpdate");
+        },
+        componentDidUpdate:function(){
+            console.log("componentDidUpdate");
+        },
+        //销毁阶段
+        componentWillUnmount:function(){
+            console.log("componentWillUnmount");
+        }
+    })
+    //第一次渲染
+    ReactDOM.render(
+        <Demo />,
+        document.getElementById("container")
+    )
+
+    //第二次渲染
+    ReactDOM.render(
+        <Demo />,
+        document.getElementById("container")
+    )
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--react的核心文件-->
+    <script src="build/react.js"></script>
+    <!--提供与DOM相关的功能-->
+    <script src="build/react-dom.js"></script>
+    <!--将JSX语法转为JavaScript语法-->
+    <script src="build/browser.min.js"></script>
+</head>
+<body>
+<!--用于渲染后追加DOM的容器-->
+<div id="container"></div>
+</body>
+<!--在react中使用jsx语法与JS语法不兼容，-->
+<!--要用babel转换为可以在浏览器中可以运行的代码，设置type="text/babel"-->
+<script type="text/babel">
+    //此处编写react代码
+
+    var Input=React.createClass({
+        getInitialState:function(){
+            return {
+                isCheck:false
+            }
+        },
+        handelChange:function(){
+            this.setState({
+                isCheck:!this.state.isCheck
+            })
+        },
+        render:function(){
+            var Text=this.state.isCheck?"已选中":"未选中";
+            return (
+                <div>
+                    <input type="checkbox" onChange={this.handelChange} />
+                    {Text}
+                </div>
+            )
+        }
+    })
+    ReactDOM.render(
+        <Input />,
+        document.getElementById("container")
+    )
+</script>
+</html>

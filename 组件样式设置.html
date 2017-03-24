@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件样式设置</title>
+    <!--react的核心文件-->
+    <script src="build/react.js"></script>
+    <!--提供与DOM相关的功能-->
+    <script src="build/react-dom.js"></script>
+    <!--将JSX语法转为JavaScript语法-->
+    <script src="build/browser.min.js"></script>
+    <style>
+        .mStyle{
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+</body>
+<!--在react中使用jsx语法与JS语法不兼容，-->
+<!--要用babel转换为可以在浏览器中可以运行的代码，设置type="text/babel"-->
+<script type="text/babel">
+//在react中与HTML5中书写样式的区别：
+//1、html5中以；结束，在react中以，结束
+//2、html5中key与value都不加引号，在react中属于js对象不能出现“-”以驼峰命名法
+//如果value为字符串需要加引号
+//3、html5中value为数字需要加单位，react中不用带单位
+//4、react中设置选择器样式时属性名不能用class要用className，for使用htmlFor
+
+        //将标题文字大小设为20px背景为red，用对象样式
+        var mStyle={
+            fontSize:20,
+            backgroundColor:"red"
+        }
+        //将第一行背景设为pink，用内联样式style={{}}
+        //将第二行设为yellow，用选择器样式在头部嵌入style标签写class名
+
+    var SetStyle=React.createClass({
+        render:function(){
+            return (
+                <div>
+                    <h1 style={mStyle}>Hello React</h1>
+                    <p style={{backgroundColor:"pink"}}>First Row</p>
+                    <p className="mStyle">Second Row</p>
+                </div>
+            )
+        }
+    })
+    ReactDOM.render(
+        <SetStyle />,
+        document.getElementById("container"),
+        function(){
+            console.log("成功");
+        }
+    )
+
+</script>
+</html>

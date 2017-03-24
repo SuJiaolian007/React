@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复合组件</title>
+    <!--react的核心文件-->
+    <script src="build/react.js"></script>
+    <!--提供与DOM相关的功能-->
+    <script src="build/react-dom.js"></script>
+    <!--将JSX语法转为JavaScript语法-->
+    <script src="build/browser.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+</body>
+<!--在react中使用jsx语法与JS语法不兼容，-->
+<!--要用babel转换为可以在浏览器中可以运行的代码，设置type="text/babel"-->
+<script type="text/babel">
+    var Name=React.createClass({
+        render:function(){
+            return <h1>{this.props.name}</h1>
+        }
+    })
+    var Link=React.createClass({
+        render:function(){
+            return <a href={this.props.link}>{this.props.link}</a>
+        }
+    })
+//props是组件自身的属性，一般用来嵌套内外层组件中，负责传递信息(父向子传)
+//props对象中的属性与组件属性一一对应，不要去直接修改props对象中属性的值
+    var Show=React.createClass({
+        render:function(){
+            return (
+                <div>
+                    <Name name={this.props.name}/>
+                    <Link link={this.props.link}/>
+                </div>
+            )
+        }
+    })
+    ReactDOM.render(
+        <Show name="蓝鸥科技" link="https://www.baidu.com" />,
+        document.getElementById("container")
+    )
+</script>
+</html>
